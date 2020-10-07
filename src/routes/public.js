@@ -7,7 +7,7 @@ import MovieList from '../MovieModule/MovieList'
 const Public = () =>(
     
         <Switch>
-             <Route exact path="/Movie-Info/">
+             <Route exact path="/Movie-Information/">
                 <Redirect to={`/Movie-list`}></Redirect>
             </Route>
             <Route exact path="/Movie-list">
