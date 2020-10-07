@@ -50,7 +50,7 @@ const MovieList =()=> {
       setMovieList({    
         ...MovieList,
         loading: true });
-      const responseData = await fetch(`http://www.omdbapi.com/?apikey=9b3b1559&s=${SearchString}&type=movie&page=${CurrentPageNumber}`);
+      const responseData = await fetch(`https://www.omdbapi.com/?apikey=9b3b1559&s=${SearchString}&type=movie&page=${CurrentPageNumber}`);
       const data = await responseData.json();
       if(data.Response !== "False")
       {

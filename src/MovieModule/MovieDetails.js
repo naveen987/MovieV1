@@ -15,7 +15,7 @@ const MovieDetails = () => {
         }
     }, [])
     async function FetchMovieDetails(title) {
-        const responseData = await fetch(`http://www.omdbapi.com?apikey=9b3b1559&t=${title}`);
+        const responseData = await fetch(`https://www.omdbapi.com?apikey=9b3b1559&t=${title}`);
         const data = await responseData.json();
         setMovieDetails(data)
         console.log(data)
