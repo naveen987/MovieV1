@@ -19,6 +19,7 @@ const MovieList =()=> {
       setSearchString(location.state.search)
     }
     if(window.localStorage.getItem("search")){
+      console.log(window.localStorage.getItem("search"))
       setSearchString(window.localStorage.getItem("search"))
     }
   },[location])
@@ -125,7 +126,12 @@ const MovieList =()=> {
           placeholder="search movies"
           enterButton="Search"
           size="large"
-          onSearch={value => searchMovie(value)}
+          onSearch={value => {searchMovie(value) 
+            setMovieList({
+              data: [],
+              loading: false,
+            })
+          }}
         />
         </div>
         <Table
