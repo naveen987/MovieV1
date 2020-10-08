@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Spin } from 'antd';
 import { InfinityTable as Table } from 'antd-table-infinity';
 import Search from 'antd/lib/input/Search';
-import { useHistory } from 'react-router-dom'
+import { useHistory,useLocation } from 'react-router-dom'
 
 const MovieList =()=> {
   const history = useHistory()
+  const location = useLocation()
   const [MovieList, setMovieList]=React.useState({
     data: [],
     loading: false,
   })
   const [CurrentPageNumber, setCurrentPageNumber] = React.useState(1);
   const [SearchString, setSearchString] = React.useState("");
+  console.log(location,"hit")
+  React.useEffect(() => {
+    if(location?.state?.search){
+      setSearchString(location.state.search)
+    }
+    if(window.localStorage.getItem("search")){
+      setSearchString(window.localStorage.getItem("search"))
+    }
+  },[location])
 
   React.useEffect(()=>{
     FetchMovieData();
@@ -81,12 +91,13 @@ const MovieList =()=> {
         ...MovieList,
         loading : false
       }); 
+      window.localStorage.setItem("search", SearchString)
     }
   }
   function searchMovie(value){
     setSearchString(value);
     setCurrentPageNumber(1);
-    console.log(SearchString)
+    // console.log(SearchString)
   }
 
   const loadMoreContent = () => (
@@ -119,13 +130,15 @@ const MovieList =()=> {
         </div>
         <Table
         onRow={(r) => ({
-          onClick: () => 
+          onClick: () => {
           history.push({
             pathname: `/Movie-detail`,
             state: {
               title:  r.Title,
+              search: SearchString
             },
           })
+        }
           ,
         })}
         key="key"

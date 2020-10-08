@@ -2,12 +2,13 @@ import React from 'react'
 import { Button, Descriptions, Badge } from 'antd'
 import { useHistory, useLocation } from 'react-router-dom'
 
+
 const MovieDetails = () => {
     const history = useHistory()
     const location = useLocation()
     const [movieDetail, setMovieDetails] = React.useState()
-    console.log(location, "hit")
-    console.log(movieDetail, "state")
+    // console.log(location, "hit")
+    // console.log(movieDetail, "state")
     React.useEffect(() => {
 
         if (location.state.title) {
@@ -18,7 +19,7 @@ const MovieDetails = () => {
         const responseData = await fetch(`https://www.omdbapi.com?apikey=9b3b1559&t=${title}`);
         const data = await responseData.json();
         setMovieDetails(data)
-        console.log(data)
+        // console.log(data)
     }
     return (
         <div>
@@ -27,7 +28,13 @@ const MovieDetails = () => {
                     <Button
                         type="primary"
                         onClick={() => {
-                            history.goBack()
+                            history.push({
+                                pathname:'/Movie-list',
+                                state:{
+                                    title: location.state.title,
+                                    search:location.state.search
+                                }
+                            })
                         }}
                     >Go back</Button>
                     <div>
